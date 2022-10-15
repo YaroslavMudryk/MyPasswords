@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyPassword.MainPage"
+             xmlns:local="clr-namespace:MyPassword">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <Entry Grid.Column="0" Placeholder="Запит..." Text="{Binding SearchText}"/>
+
+            <Button Grid.Column="1" Text="Пошук" Command="{Binding SearchBtn}" Margin="5"/>
+            <Button Grid.Column="2" Text="Екпорт" Margin="5"/>
+        </Grid>
+
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Accounts}" SelectionMode="Single" SelectedItem="{Binding SelectedAccount}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.LeftItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem Text="Редагувати" Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainPageViewModel}}, Path=EditAccountBtn}" CommandParameter="{Binding .}" BackgroundColor="LightGreen">                                    
+                                </SwipeItem>
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem Text="Видалити" Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainPageViewModel}}, Path=DeleteAccountBtn}" CommandParameter="{Binding .}" BackgroundColor="LightBlue">
+                                </SwipeItem>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Margin="5" Grid.Row="0" Text="{Binding Login}"/>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="75"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Entry Grid.Column="0" Text="{Binding Password}" WidthRequest="100" HorizontalOptions="Start" IsPassword="True" IsReadOnly="True" Margin="5" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                <Button Grid.Column="1" Text="Copy" Margin="5,0,5,0" HeightRequest="50" Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainPageViewModel}}, Path=CopyPassBtn}" CommandParameter="{Binding Password}"/>
+
+                            </Grid>
+                            <Label Margin="5" Grid.Row="2" Text="{Binding Description}"/>
+
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
