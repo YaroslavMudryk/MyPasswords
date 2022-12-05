@@ -25,6 +25,8 @@ namespace MyPassword
             DeleteAccountBtn = new Command(DeleteAccount);
             EditAccountBtn = new Command(EditAccount);
             CopyPassBtn = new Command(CopyPassword);
+            CreateBtn = new Command(CreateAccount);
+            ExportBtn = new Command(ExportAccounts);
             _accountRepository = AccountRepository.GetInstance();
         }
 
@@ -34,6 +36,8 @@ namespace MyPassword
         public Command DeleteAccountBtn { get; }
         public Command EditAccountBtn { get; }
         public Command CopyPassBtn { get; }
+        public Command CreateBtn { get; }
+        public Command ExportBtn { get; }
 
         private string _searchText;
 
@@ -79,9 +83,29 @@ namespace MyPassword
             }
         }
 
-        private void EditAccount(object obj)
+        private async void EditAccount(object obj)
         {
+            var account = obj as Account;
 
+            await App.Current.MainPage.Navigation.PushAsync(new EditAccountPage(account.Id));
+        }
+
+        private async void CreateAccount(object obj)
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new EditAccountPage(null));
+        }
+
+        private async void ExportAccounts()
+        {
+            await App.Current.MainPage.DisplayAlert("Інформаційний банер", "Експорт скоро почнется", "OK");
+
+            await Task.Delay(2000);
+
+            await Share.Default.RequestAsync(new ShareFileRequest
+            {
+                Title = "Експорт акаунтів",
+                File = new ShareFile(AccountRepository.GetInstance().GetFullPath())
+            });
         }
 
         private async void CopyPassword(object obj)

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyPassword.EditAccountPage"
+             Title="EditAccountPage">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="ID:" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontAttributes="Bold"/>
+            <Entry Grid.Row="1" Text="{Binding Id}" IsReadOnly="True" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="Login:" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontAttributes="Bold"/>
+            <Entry Grid.Row="1" Text="{Binding Login}" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="Password:" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontAttributes="Bold"/>
+            <Entry Grid.Row="1" Text="{Binding Password}" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="Description:" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontAttributes="Bold"/>
+            <Entry Grid.Row="1" Text="{Binding Description}" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+        </Grid>
+
+        <Grid Grid.Row="4">
+            <Button Text="{Binding BtnText}" Margin="5" Command="{Binding SaveBtn}" HorizontalOptions="CenterAndExpand" HeightRequest="50"/>
+        </Grid>
+    </Grid>
+</ContentPage>

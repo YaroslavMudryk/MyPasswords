@@ -68,13 +68,7 @@ namespace MyPassword.Infra.Data
 
         public IEnumerable<Account> GetAllAccounts()
         {
-            yield return new Account
-            {
-                Id = Guid.NewGuid().ToString("N").Substring(0, 10),
-                Description = "тестова пошта",
-                Login = "test@email.com",
-                Password = "testPassword"
-            };
+            return _accounts;
         }
 
         public IEnumerable<Account> SearchAccounts(string query)
@@ -84,6 +78,13 @@ namespace MyPassword.Infra.Data
             return _accounts.Where(predicate);
         }
 
+        public Account GetById(string id)
+        {
+            return _accounts.FirstOrDefault(s => s.Id == id);
+        }
+
+        public string GetFullPath() => _filePath;
+
         private void LoadData()
         {
             if (!File.Exists(_filePath))
@@ -91,13 +92,6 @@ namespace MyPassword.Infra.Data
                 var d = File.Create(_filePath);
                 d.Close();
                 _accounts = new List<Account>();
-                _accounts.Add(new Account 
-                { 
-                    Id = Guid.NewGuid().ToString("N").Substring(0, 10),
-                    Description = "тестова пошта",
-                    Login = "test@email.com",
-                    Password = "testPassword"
-                });
                 _clientInfo = GetInfo();
                 return;
             }
